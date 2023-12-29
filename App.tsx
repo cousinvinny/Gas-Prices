@@ -1,5 +1,7 @@
 import React from 'react';
+import { useState } from 'react';
 import { Linking } from 'react-native';
+import DropdownComponent from './components/DropdownComponent';
 
 import {
   SafeAreaView,
@@ -10,14 +12,11 @@ import {
   View,
 } from 'react-native';
 
-type GreetingProps = {
-  name: string;
-};
-
 const Header = () => {
   return (
     <View>
       <Text style={styles.appTitle}>Gas Prices</Text>
+      <DropdownComponent />
     </View>
   );
 };
@@ -25,15 +24,19 @@ const Header = () => {
 const Card = () => {
   return (
     <View style={styles.card}>
-      <Text style={styles.websiteLink} onPress={() => Linking.openURL('https://www.quikstop.com/find-us/generic-store-page/?id=550034')}>QuikStop</Text>
-      <Text style={styles.name}>123 Lane Street 95116</Text>
+      <View style={styles.cardHeaderContainer}>
+        <Text style={styles.websiteLink} onPress={() => Linking.openURL('https://www.quikstop.com/find-us/generic-store-page/?id=550034')}>QuikStop</Text>
+        <Text style={styles.distance}>3.7 miles</Text>
+      </View>
+
+      <Text style={styles.stationAddress}>2704 S Bascom Ave, San Jose, CA, 95124</Text>
       <View style={styles.pricesContainer}>
-        <View style={styles.unleadedContainer}>
-          <Text style={styles.name}>Unleaded</Text>
+        <View style={styles.regularContainer}>
+          <Text style={styles.name}>Regular</Text>
           <Text style={styles.name}>$3.49</Text>
         </View>
-        <View style={styles.leadedContainer}>
-          <Text style={styles.name}>Leaded</Text>
+        <View style={styles.regularPlusContainer}>
+          <Text style={styles.name}>Plus</Text>
           <Text style={styles.name}>$6.49</Text>
         </View>
       </View>
@@ -44,9 +47,9 @@ const Card = () => {
 
 function App() {
   return (
-    <View style = {{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Header />
-      <ScrollView style = {{flex: 1}}>
+      <ScrollView style={{ flex: 1 }}>
         <Card />
         <Card />
         <Card />
@@ -62,7 +65,7 @@ function App() {
 const styles = StyleSheet.create({
   appTitle: {
     fontWeight: 'bold',
-    fontSize: 40,
+    fontSize: 35,
     marginLeft: 15,
     marginTop: 5,
     color: 'black',
@@ -79,9 +82,23 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
   },
+  cardHeaderContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
   name: {
     fontSize: 25,
     color: 'black',
+  },
+  stationAddress: {
+    fontSize: 20,
+    color: 'black',
+  },
+  distance: {
+    fontSize: 20,
+    color: 'black',
+    right: 15,
+    textDecorationLine: 'underline',
   },
   pricesContainer: {
     flex: 1,
@@ -90,7 +107,7 @@ const styles = StyleSheet.create({
     color: 'black',
 
   },
-  unleadedContainer: {
+  regularContainer: {
     flexGrow: 1,
     flexBasis: 100,
     padding: 10,
@@ -101,7 +118,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
   },
-  leadedContainer: {
+  regularPlusContainer: {
     flexGrow: 1,
     flexBasis: 100,
     padding: 10,
@@ -116,6 +133,8 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
     fontSize: 25,
+    flexGrow: 1,
+    flexBasis: 100,
   },
 });
 
